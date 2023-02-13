@@ -30,7 +30,7 @@ jobs:
         uses: LouisBrunner/checks-action@v1.3.1
         with:
           repo: aryella-lacerda/ci-testing
-          sha: ${{ github.sha }}
+          sha: ${{ github.ref }}
           token: ${{ steps.get_installation_token.outputs.token }}
           name: E2E Tests - Staging
           status: in_progress
