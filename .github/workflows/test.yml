@@ -3,9 +3,6 @@ name: Test
 on:
   workflow_dispatch:
 
-env:
-  GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
 jobs:
   test:
     permissions: write-all
