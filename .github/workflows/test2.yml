@@ -9,12 +9,11 @@ jobs:
   test2:
     runs-on: ubuntu-latest
     steps:
-      - name: Start a check run for Test
+      - name: Start a check run for the E2E tests
         uses: LouisBrunner/checks-action@v1.3.1
-        id: check
         with:
           sha: ${{ github.sha }}
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ github.token }}
           name: Test XYZ
           status: in_progress
 
@@ -30,7 +29,7 @@ jobs:
         uses: LouisBrunner/checks-action@v1.6.0
         if: always()
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ github.token }}
           name: Test XYZ
           conclusion: ${{ job.status }}
           output: |
