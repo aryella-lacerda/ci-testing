@@ -13,7 +13,7 @@ jobs:
       - name: Debug
         run: |
           echo ${{ github.sha }}
-          echo ${{ git rev-parse github.ref }}
+          echo git rev-parse ${{ github.ref }}
 
       - name: Checkout selected branch
         uses: actions/checkout@v3
@@ -31,7 +31,7 @@ jobs:
         uses: LouisBrunner/checks-action@v1.3.1
         with:
           repo: aryella-lacerda/ci-testing
-          sha: ${{ git rev-parse github.ref }}
+          sha: git rev-parse ${{ github.ref }}
           token: ${{ steps.get_installation_token.outputs.token }}
           name: E2E Tests - Staging
           status: in_progress
