@@ -23,7 +23,7 @@ jobs:
 
       - name: Test commit
         run: |
-          git config --global user.email "ci@kasta.io"
+          git config --global user.email "aryella.lacerda@gmail.com"
           git config --global user.name "CI"
           git add .
           git commit -m "ci: test if commit & push works on ci" --no-verify
