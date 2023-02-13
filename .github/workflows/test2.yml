@@ -15,10 +15,16 @@ jobs:
           ref: ${{ github.ref }}
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
+      - uses: tibdex/github-app-token@v1
+        id: get_installation_token
+        with: 
+          app_id: 293149
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Start a check run for the E2E tests
         uses: LouisBrunner/checks-action@v1.3.1
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ steps.get_installation_token.outputs.token }}
           name: Test XYZ
           status: in_progress
 
@@ -30,12 +36,12 @@ jobs:
           https://api.github.com/repos/aryella-lacerda/ci-testing/actions/workflows/test.yml/dispatches \
           -d '{"ref": "aryella/a"}'
 
-      # - name: Watch the test run?
-      #   uses: LouisBrunner/checks-action@v1.6.0
-      #   if: always()
-      #   with:
-      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-      #     name: Test XYZ
-      #     conclusion: ${{ job.status }}
-      #     output: |
-      #       {"summary":"${{ steps.test.outputs.summary }}"}
+      - name: Watch the test run?
+        uses: LouisBrunner/checks-action@v1.6.0
+        if: always()
+        with:
+          token: ${{ steps.get_installation_token.outputs.token }}
+          name: Test XYZ
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary":"${{ steps.test.outputs.summary }}"}
