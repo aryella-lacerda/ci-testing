@@ -27,4 +27,4 @@ jobs:
           git commit -m "ci: test if commit & push works on ci" --no-verify
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
