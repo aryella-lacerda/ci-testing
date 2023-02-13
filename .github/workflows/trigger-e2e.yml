@@ -13,7 +13,7 @@ jobs:
       - name: Debug
         run: |
           echo ${{ github.sha }}
-          echo git rev-parse ${{ github.ref }}
+          git rev-parse ${{ github.ref }}
 
       - name: Checkout selected branch
         uses: actions/checkout@v3
