@@ -1,36 +1,37 @@
 name: Experiment
 
 on:
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
-  job1:
-    name: Job 1
+  test2:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Sleep and Run
-      run: |
-        echo "Sleeping for 10"
-        sleep 10
+      - name: Start a check run for Test
+        uses: LouisBrunner/checks-action@v1.3.1
+        id: check
+        with:
+          sha: ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Test XYZ
+          status: in_progress
 
-  job2:
-    name: Job 2
-    needs: job1
-    runs-on: ubuntu-latest
+      - name: Trigger the other workflow
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/aryella-lacerda/ci-testing/actions/workflows/test.yml/dispatches \
+          -d '{"ref": "aryella/a"}'
 
-    steps:
-    - name: Dependant is Running
-      run: |
-        echo "Completed job 2, but triggering failure"
-        exit 1
-
-  job3:
-    name: Job 3
-    needs: job2
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Will never run
-      run: |
-        echo "If you can read this, the experiment failed"
+      - name: Watch the test run?
+        uses: LouisBrunner/checks-action@v1.6.0
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Test XYZ
+          conclusion: ${{ job.status }}
+          output: |
+            {"summary":"${{ steps.test.outputs.summary }}"}
