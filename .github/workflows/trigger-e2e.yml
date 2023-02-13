@@ -48,9 +48,9 @@ jobs:
         with:
           script: |
             github.rest.actions.createWorkflowDispatch({
-              owner: aryella-lacerda,
-              repo: ci-testing-e2e,
-              ref: '${{ github.head_ref }}',
+              owner: "aryella-lacerda",
+              repo: "ci-testing-e2e",
+              ref: "${{ github.head_ref }}",
               inputs: {
                 "pull_request_sha": "${{ github.event.pull_request.head.sha }}",
               }
