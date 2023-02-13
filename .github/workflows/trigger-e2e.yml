@@ -43,8 +43,15 @@ jobs:
       #     https://api.github.com/repos/aryella-lacerda/ci-testing-e2e/actions/workflows/run-e2e.yml/dispatches \
       #     -d '{"ref": "main", "inputs": { "pull_request_sha": "${{ github.event.pull_request.head.sha }}" }}'
       
-      - name: Trigger E2E Tests
-        uses: aryella-lacerda/ci-testing-e2e/.github/workflows/run-e2e.yml@main
-        secrets: inherit
+      - name: Trigger Workflow
+        uses: actions/github-script@v6
         with:
-          pull_request_sha: ${{ github.event.pull_request.head.sha }}
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: aryella-lacerda,
+              repo: ci-testing-e2e,
+              ref: '${{ github.head_ref }}',
+              inputs: {
+                "pull_request_sha": "${{ github.event.pull_request.head.sha }}",
+              }
+            })
