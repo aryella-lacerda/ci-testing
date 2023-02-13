@@ -9,11 +9,16 @@ jobs:
   test2:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
       - name: Start a check run for the E2E tests
         uses: LouisBrunner/checks-action@v1.3.1
         with:
-          sha: ${{ github.sha }}
-          token: ${{ github.token }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           name: Test XYZ
           status: in_progress
 
@@ -25,12 +30,12 @@ jobs:
           https://api.github.com/repos/aryella-lacerda/ci-testing/actions/workflows/test.yml/dispatches \
           -d '{"ref": "aryella/a"}'
 
-      - name: Watch the test run?
-        uses: LouisBrunner/checks-action@v1.6.0
-        if: always()
-        with:
-          token: ${{ github.token }}
-          name: Test XYZ
-          conclusion: ${{ job.status }}
-          output: |
-            {"summary":"${{ steps.test.outputs.summary }}"}
+      # - name: Watch the test run?
+      #   uses: LouisBrunner/checks-action@v1.6.0
+      #   if: always()
+      #   with:
+      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      #     name: Test XYZ
+      #     conclusion: ${{ job.status }}
+      #     output: |
+      #       {"summary":"${{ steps.test.outputs.summary }}"}
