@@ -52,7 +52,7 @@ jobs:
               owner: "aryella-lacerda",
               repo: "ci-testing-e2e",
               workflow_id: "run-e2e.yml",
-              ref: "${{ github.head_ref }}",
+              ref: "main",
               inputs: {
                 "pull_request_sha": "${{ github.event.pull_request.head.sha }}",
               }
