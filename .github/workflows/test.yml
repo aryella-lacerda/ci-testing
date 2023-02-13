@@ -12,15 +12,3 @@ jobs:
         with:
           ref: ${{ github.ref }}
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-      - name: Change version
-        uses: reedyuk/npm-version@1.1.1
-        with:
-          version: '2.3.11'
-
-      - name: Test commit
-        run: |
-          git add .
-          git commit -m "ci: test if commit & push works on ci" --no-verify
-          git push
-
