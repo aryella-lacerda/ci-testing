@@ -29,6 +29,7 @@ jobs:
       - name: Start a check run for the E2E tests
         uses: LouisBrunner/checks-action@v1.3.1
         with:
+          repo: aryella-lacerda/ci-testing
           sha: ${{ github.sha }}
           token: ${{ steps.get_installation_token.outputs.token }}
           name: E2E Tests - Staging
