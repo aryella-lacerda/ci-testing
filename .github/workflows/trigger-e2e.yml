@@ -17,7 +17,7 @@ jobs:
       - name: Debug
         run: |
           echo ${{ github.sha }}
-          git rev-parse ${{ github.ref }}
+          echo ${{ github.event.pull_request.head.sha }}
 
       - uses: tibdex/github-app-token@v1
         id: get_installation_token
