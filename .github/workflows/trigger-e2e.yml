@@ -28,7 +28,7 @@ jobs:
       - name: Start a check run for the E2E tests
         uses: LouisBrunner/checks-action@v1.3.1
         with:
-          sha: github.event.pull_request.head.sha
+          sha: ${{ github.event.pull_request.head.sha }}
           token: ${{ steps.get_installation_token.outputs.token }}
           name: E2E Tests - Staging
           status: in_progress
