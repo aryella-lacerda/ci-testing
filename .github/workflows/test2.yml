@@ -1,4 +1,4 @@
-name: Experiment
+name: Trigger
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test2:
+  trigger-e2e-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout selected branch
@@ -25,7 +25,7 @@ jobs:
         uses: LouisBrunner/checks-action@v1.3.1
         with:
           token: ${{ steps.get_installation_token.outputs.token }}
-          name: Test XYZ
+          name: E2E Tests - Staging
           status: in_progress
 
       - name: Trigger the other workflow
@@ -35,13 +35,3 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/aryella-lacerda/ci-testing/actions/workflows/test.yml/dispatches \
           -d '{"ref": "aryella/a"}'
-
-      - name: Watch the test run?
-        uses: LouisBrunner/checks-action@v1.6.0
-        if: always()
-        with:
-          token: ${{ steps.get_installation_token.outputs.token }}
-          name: Test XYZ
-          conclusion: ${{ job.status }}
-          output: |
-            {"summary":"${{ steps.test.outputs.summary }}"}
