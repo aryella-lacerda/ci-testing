@@ -1,4 +1,4 @@
-name: Trigger
+name: Trigger E2E Tests
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   trigger-e2e-tests:
-    name: Trigger E2E Tests
+    name: Staging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout selected branch
@@ -35,16 +35,16 @@ jobs:
           name: E2E Tests - Staging
           status: in_progress
 
-      - name: Trigger E2E Tests
-        run: |
-          curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/aryella-lacerda/ci-testing-e2e/actions/workflows/run-e2e.yml/dispatches \
-          -d '{"ref": "main", "inputs": { "pull_request_sha": "${{ github.event.pull_request.head.sha }}" }}'
-      
       # - name: Trigger E2E Tests
-      #   uses: aryella-lacerda/ci-testing-e2e/.github/workflows/run-e2e.yml@main
-      #   secrets: inherit
-      #   with:
-      #     pull_request_sha: ${{ github.event.pull_request.head.sha }}
+      #   run: |
+      #     curl -X POST \
+      #     -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
+      #     -H "Accept: application/vnd.github.v3+json" \
+      #     https://api.github.com/repos/aryella-lacerda/ci-testing-e2e/actions/workflows/run-e2e.yml/dispatches \
+      #     -d '{"ref": "main", "inputs": { "pull_request_sha": "${{ github.event.pull_request.head.sha }}" }}'
+      
+      - name: Trigger E2E Tests
+        uses: aryella-lacerda/ci-testing-e2e/.github/workflows/run-e2e.yml@main
+        secrets: inherit
+        with:
+          pull_request_sha: ${{ github.event.pull_request.head.sha }}
