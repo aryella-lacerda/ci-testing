@@ -7,8 +7,13 @@ on:
 
 jobs:
   trigger-e2e-tests:
+    name: Trigger E2E Tests
     runs-on: ubuntu-latest
     steps:
+      - name: Debug
+        run: |
+          echo ${{ github.sha }}
+
       - name: Checkout selected branch
         uses: actions/checkout@v3
         with:
@@ -24,6 +29,7 @@ jobs:
       - name: Start a check run for the E2E tests
         uses: LouisBrunner/checks-action@v1.3.1
         with:
+          sha: ${{ github.sha }}
           token: ${{ steps.get_installation_token.outputs.token }}
           name: E2E Tests - Staging
           status: in_progress
