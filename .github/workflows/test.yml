@@ -7,11 +7,6 @@ jobs:
   run-e2e-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug
-        run: |
-          echo ${{ github.ref }}
-          echo ${{ toJson(github) }}
-
       - name: Checkout selected branch
         uses: actions/checkout@v3
         with:
@@ -20,6 +15,7 @@ jobs:
 
       - uses: tibdex/github-app-token@v1
         id: get_installation_token
+        if: always()
         with: 
           app_id: 293149
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
