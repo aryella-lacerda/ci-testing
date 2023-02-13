@@ -20,7 +20,7 @@ jobs:
       - name: Change version
         uses: reedyuk/npm-version@1.1.1
         with:
-          version: '2.3.7'
+          version: '2.3.8'
 
       - name: Test commit
         run: |
