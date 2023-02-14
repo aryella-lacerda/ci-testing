@@ -46,7 +46,7 @@ jobs:
       - name: Trigger Workflow
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github-token: ${{ steps.get_installation_token.outputs.token }}
           script: |
             github.rest.actions.createWorkflowDispatch({
               owner: "aryella-lacerda",
