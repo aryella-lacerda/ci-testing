@@ -15,5 +15,5 @@ jobs:
 
       - name: Echo ref
         run: |
-          echo ${{ github.event.head.ref }}
-          echo ${{ github.event.base.ref }}
+          echo ${{ github.event.pull_request.head.ref }}
+          echo ${{ github.event.pull_request.base.ref }}
