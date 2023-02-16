@@ -13,7 +13,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo ${{ github.event.head.ref }}
+      - name: Echo ref
+        run: |
+          echo ${{ github.event.head.ref }}
+          echo ${{ github.event.base.ref }}
