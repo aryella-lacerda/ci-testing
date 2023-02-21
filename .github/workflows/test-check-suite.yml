@@ -1,8 +1,7 @@
 name: On Checks Passed
 
-on:
-  check_suite:
-    types: [completed]
+on: check_run
+  type: [completed]
 
 jobs:
   auto-merge-to-master:
