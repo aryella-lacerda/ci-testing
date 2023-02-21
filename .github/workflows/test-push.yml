@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'aryella/**'
 
 jobs:
   code-quality:
