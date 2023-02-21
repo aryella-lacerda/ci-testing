@@ -1,0 +1,14 @@
+name: On Checks Passed
+
+on:
+  check_suite:
+    types: [completed]
+
+jobs:
+  auto-merge-to-master:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
