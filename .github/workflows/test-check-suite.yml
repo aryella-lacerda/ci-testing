@@ -22,4 +22,8 @@ jobs:
     needs: [job1, job2, job3]
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ needs.*.result }}
+      - run: echo ${{ needs.*.result }}      
+      - name: dump needs context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(needs.*.result) }}
+        run: echo "$GITHUB_CONTEXT"
