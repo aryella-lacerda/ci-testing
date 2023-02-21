@@ -27,4 +27,4 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(needs.*.result) }}
         run: echo "$GITHUB_CONTEXT"
-      - run: echo ${{ toJson(needs.*.result) == '[success, success, success]' }}
+      - run: echo ${{ contains(needs.*.result, 'failure') && contains(needs.*.result, 'cancelled') && contains(needs.*.result, 'skipped') }}
