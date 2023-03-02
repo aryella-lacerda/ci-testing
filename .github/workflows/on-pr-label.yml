@@ -15,3 +15,18 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+
+      - uses: tibdex/github-app-token@v1
+        id: get_installation_token
+        with: 
+          app_id: 293149
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: paul1k/check-pr-labels@v1.0.0
+        with:
+          github-token: ${{ steps.get_installation_token.outputs.token }}
+          pull-number: ${{ github.event.pull_request.number }}
+          labels: '["e2e tests passed", "deployments succeeded"]'
+
+      - name: See result
+        run: echo "${{ steps.check_pr_labels.outputs.result }}"
