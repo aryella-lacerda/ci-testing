@@ -31,7 +31,7 @@ runs:
       if: ${{ inputs.operation == 'add' }}
       uses: actions/github-script@v6
       with:
-        github-token: ${{ github.token || inputs.token }}
+        github-token: ${{ inputs.token }}
         script: |
           github.rest.issues.addLabels({
             issue_number: context.issue.number,
@@ -44,7 +44,7 @@ runs:
       if: ${{ inputs.operation == 'remove' }}
       uses: actions/github-script@v6
       with:
-        github-token: ${{ github.token || inputs.token }}
+        github-token: ${{ inputs.token }}
         script: |
           github.rest.issues.removeLabel({
             issue_number: context.issue.number,
