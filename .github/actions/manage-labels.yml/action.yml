@@ -31,24 +31,24 @@ runs:
       if: ${{ inputs.operation == 'add' }}
       uses: actions/github-script@v6
       with:
-        github-token: ${{ github.token }} || ${{ inputs.token }}
+        github-token: ${{ github.token || inputs.token }}
         script: |
           github.rest.issues.addLabels({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            labels: [${{ input.label }}],
+            labels: ["${{ input.label }}"],
           })
 
     - name: Remove Label
       if: ${{ inputs.operation == 'remove' }}
       uses: actions/github-script@v6
       with:
-        github-token: ${{ github.token }} || ${{ inputs.token }}
+        github-token: ${{ github.token || inputs.token }}
         script: |
           github.rest.issues.removeLabel({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            name: ${{ input.label }},
+            name: "${{ input.label }}",
           })
