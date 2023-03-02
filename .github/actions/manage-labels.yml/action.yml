@@ -44,8 +44,10 @@ runs:
         pull-number: ${{ github.event.pull_request.number }}
         labels: '["e2e tests passed", "deployments succeeded"]'
 
+    - run: echo "${{ steps.check_pr_labels.outputs.result }}"
+
     - name: Remove / Remove Label
-      if: ${{ inputs.operation == 'remove' && steps.check_pr_labels.outputs.result == 'true' }}
+      if: ${{ inputs.operation == 'remove' }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ inputs.token }}
