@@ -27,13 +27,6 @@ jobs:
           app_id: 293149
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Remove label
-        uses: ./.github/actions/manage-labels.yml
-        with:
-          token: ${{ steps.get_installation_token.outputs.token }}
-          operation: remove
-          label: "e2e tests passed"
-
       - name: Add label
         uses: ./.github/actions/manage-labels.yml
         with:

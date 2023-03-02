@@ -22,11 +22,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: View context attributes
-      uses: actions/github-script@v6
-      with:
-        script: console.log(context)
-
     - name: Add / Add Label
       if: ${{ inputs.operation == 'add' }}
       uses: actions/github-script@v6
