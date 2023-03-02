@@ -37,7 +37,7 @@ runs:
             issue_number: ${{ inputs.pull-request-number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
-            labels: [${{ inputs.label }}],
+            labels: ["${{ inputs.label }}"],
           })
 
     - name: Remove / Check if label exists
