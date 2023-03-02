@@ -1,0 +1,18 @@
+name: On Status Change
+
+on:
+  status
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - env:
+          DESCRIPTION: ${{ github.event.description }}
+        run: |
+          echo "Description: $DESCRIPTION"

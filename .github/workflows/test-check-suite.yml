@@ -1,14 +1,20 @@
-name: On Checks Passed
+name: On Push to Main
 
 on:
-  check_suite:
-    types: [completed]
+  push:
+    branches:
+      - 'main'
 
 jobs:
-  auto-merge-to-master:
+  job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+      - run: exit 0
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
