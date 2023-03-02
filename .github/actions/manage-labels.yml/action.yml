@@ -44,7 +44,7 @@ runs:
       uses: paul1k/check-pr-labels@v1.0.0
       if: ${{ inputs.operation == 'remove' }}
       with:
-        github-token: ${{ steps.get_installation_token.outputs.token }}
+        github-token: ${{ inputs.token }}
         pull-number: ${{ github.event.pull_request.number }}
         labels: '["e2e tests passed", "deployments succeeded"]'
 
