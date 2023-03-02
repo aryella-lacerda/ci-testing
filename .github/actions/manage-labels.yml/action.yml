@@ -42,7 +42,7 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         pull-number: ${{ github.event.pull_request.number }}
-        labels: '["e2e tests passed", "deployments succeeded"]'
+        labels: '["${{ inputs.label }}"]'
 
     - shell: bash
       run: echo "${{ steps.check_pr_labels.outputs.result }}"
