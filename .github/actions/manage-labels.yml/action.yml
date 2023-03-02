@@ -37,7 +37,7 @@ runs:
             issue_number: ${{ inputs.pull-request-number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
-            labels: ["${{ inputs.label }}"],
+            labels: [${{ inputs.label }}],
           })
 
     - name: Remove / Check if label exists
@@ -47,7 +47,7 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         pull-number: ${{ inputs.pull-request-number }}
-        labels: '["${{ inputs.label }}"]'
+        labels: '[${{ inputs.label }}]'
 
     - shell: bash
       run: echo "${{ steps.check_pr_labels.outputs.result }}"
@@ -59,9 +59,9 @@ runs:
         github-token: ${{ inputs.token }}
         script: |
           github.rest.issues.removeLabel({
-            issue_number: "${{ inputs.pull-request-number }}",
+            issue_number: ${{ inputs.pull-request-number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
-            name: "${{ inputs.label }}",
+            name: ${{ inputs.label }},
           })
 
