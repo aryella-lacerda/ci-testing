@@ -1,4 +1,4 @@
-name: Trigger E2E Tests
+name: On PR to Main
 
 on:
   pull_request:

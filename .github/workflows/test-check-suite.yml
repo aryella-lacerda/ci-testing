@@ -1,4 +1,4 @@
-name: On Checks Passed
+name: On Push to Main
 
 on:
   push:

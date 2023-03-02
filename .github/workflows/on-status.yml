@@ -1,3 +1,5 @@
+name: On Status Change
+
 on:
   status
 
