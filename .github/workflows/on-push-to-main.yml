@@ -12,12 +12,12 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - run: sleep 60s
+      - run: sleep 80s
       - run: exit 0
   job2:
     runs-on: ubuntu-latest
     steps:
-      - run: exit 1
+      - run: exit 0
   job3:
     runs-on: ubuntu-latest
     steps:
