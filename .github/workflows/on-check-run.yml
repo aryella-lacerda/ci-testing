@@ -1,8 +1,7 @@
 name: On Check Run
 
 on:
-  check_run:
-    types: [rerequested, completed]
+  check_run
 
 jobs:
   test:
