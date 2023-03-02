@@ -37,7 +37,7 @@ runs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            labels: ["${{ input.label }}"],
+            labels: ["${{ inputs.label }}"],
           })
 
     - name: Remove Label
@@ -50,5 +50,5 @@ runs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            name: "${{ input.label }}",
+            name: "${{ inputs.label }}",
           })
