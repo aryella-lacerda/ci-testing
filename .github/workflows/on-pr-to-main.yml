@@ -16,19 +16,13 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - run: | 
-          cd .github
-          ls
-          cd actions
-          ls
-
       - name: Dump context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
       - name: Add label
-        uses: ./.github/actions/manage-labels
+        uses: ./.github/actions/manage-labels.yml
         with:
           operation: add
           label: "e2e tests passed"
