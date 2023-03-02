@@ -27,7 +27,7 @@ runs:
       with:
         script: console.log(context)
 
-    - name: [Add] Add Label
+    - name: Add / Add Label
       if: ${{ inputs.operation == 'add' }}
       uses: actions/github-script@v6
       with:
@@ -40,7 +40,7 @@ runs:
             labels: ["${{ inputs.label }}"],
           })
 
-    - name: [Remove] Check if label exists
+    - name: Remove / Check if label exists
       uses: paul1k/check-pr-labels@v1.0.0
       if: ${{ inputs.operation == 'remove' }}
       with:
@@ -48,7 +48,7 @@ runs:
         pull-number: ${{ github.event.pull_request.number }}
         labels: '["e2e tests passed", "deployments succeeded"]'
 
-    - name: [Remove] Remove Label
+    - name: Remove / Remove Label
       if: ${{ inputs.operation == 'remove' && steps.check_pr_labels.outputs.result == 'true' }}
       uses: actions/github-script@v6
       with:
