@@ -16,6 +16,12 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
+      - run: | 
+          cd .github
+          ls
+          cd actions
+          ls
+
       - name: Dump context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
