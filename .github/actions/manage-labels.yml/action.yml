@@ -18,6 +18,11 @@ inputs:
     type: string
     required: true
     description: What label would you like to add or remove?
+  pull-request-number:
+    type: string
+    required: false
+    description: Which pull request would you like to perform this operation on?
+    default: ${{ github.event.pull_request.number }}
 
 runs:
   using: 'composite'
@@ -29,7 +34,7 @@ runs:
         github-token: ${{ inputs.token }}
         script: |
           github.rest.issues.addLabels({
-            issue_number: context.issue.number,
+            issue_number: ${{ inputs.pull-request-number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
             labels: ["${{ inputs.label }}"],
@@ -41,7 +46,7 @@ runs:
       id: check_pr_labels
       with:
         github-token: ${{ inputs.token }}
-        pull-number: ${{ github.event.pull_request.number }}
+        pull-number: ${{ inputs.pull-request-number }}
         labels: '["${{ inputs.label }}"]'
 
     - shell: bash
@@ -54,7 +59,7 @@ runs:
         github-token: ${{ inputs.token }}
         script: |
           github.rest.issues.removeLabel({
-            issue_number: context.issue.number,
+            issue_number: "${{ inputs.pull-request-number }}",
             owner: context.repo.owner,
             repo: context.repo.repo,
             name: "${{ inputs.label }}",
