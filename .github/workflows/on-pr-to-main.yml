@@ -1,9 +1,9 @@
 name: On PR to Main
 
 on:
-  pull_request:
-    branches:
-      - 'main'
+  # pull_request:
+  #   branches:
+  #     - 'main'
   workflow_dispatch:
 
 jobs:
@@ -28,6 +28,7 @@ jobs:
           token: ${{ steps.get_installation_token.outputs.token }}
           operation: add
           label: "e2e tests passed"
+          pull-request-number: 2
 
       - run: sleep 60s
 
@@ -37,6 +38,7 @@ jobs:
           token: ${{ steps.get_installation_token.outputs.token }}
           operation: add
           label: "deployments succeeded"
+          pull-request-number: 2
 
       # - name: Start a check run for the E2E tests
       #   uses: actions/github-script@v6
