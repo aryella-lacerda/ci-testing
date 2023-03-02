@@ -30,5 +30,6 @@ jobs:
           pull-number: ${{ github.event.pull_request.number }}
           labels: '["e2e tests passed", "deployments succeeded"]'
 
-      - name: See result
-        run: echo "${{ steps.check_pr_labels.outputs.result }}"
+      - name: Merge to Master
+        if: ${{ steps.check_pr_labels.outputs.result == 'true' }}
+        run: echo "Time to Merge to Master"
