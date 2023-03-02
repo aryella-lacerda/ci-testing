@@ -15,15 +15,6 @@ jobs:
     steps:
       - run: exit 0
   job3:
-    if: false
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
-  job4:
-    needs: [job1, job2, job3]
-    runs-on: ubuntu-latest
-    steps:
-      - name: dump needs context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
