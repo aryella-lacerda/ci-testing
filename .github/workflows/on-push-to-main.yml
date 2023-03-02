@@ -4,11 +4,15 @@ on:
   push:
     branches:
       - 'main'
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+      - run: sleep 60s
       - run: exit 0
   job2:
     runs-on: ubuntu-latest
