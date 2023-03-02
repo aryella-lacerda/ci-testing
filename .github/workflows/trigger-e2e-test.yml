@@ -23,12 +23,16 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Start a check run for the E2E tests
-        uses: LouisBrunner/checks-action@v1.3.1
+        uses: actions/github-script@v6
         with:
-          sha: ${{ github.event.pull_request.head.sha }}
-          token: ${{ steps.get_installation_token.outputs.token }}
-          name: E2E Tests - Staging
-          status: in_progress
+          github-token: ${{ steps.get_installation_token.outputs.token }}
+          script: |
+            github.rest.checks.create({
+              sha: "${{ github.event.pull_request.head.sha }}",
+              token: "${{ steps.get_installation_token.outputs.token }}",
+              name: "E2E Tests - Staging",
+              status: "in_progress"
+            })
 
       - name: Trigger Workflow
         uses: actions/github-script@v6
@@ -44,3 +48,4 @@ jobs:
                 "pull_request_sha": "${{ github.event.pull_request.head.sha }}",
               }
             })
+
