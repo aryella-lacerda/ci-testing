@@ -22,7 +22,9 @@ jobs:
           app_id: 293149
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - uses: paul1k/check-pr-labels@v1.0.0
+      - name: Check that PR has necessary labels
+        uses: paul1k/check-pr-labels@v1.0.0
+        id: check_pr_labels
         with:
           github-token: ${{ steps.get_installation_token.outputs.token }}
           pull-number: ${{ github.event.pull_request.number }}

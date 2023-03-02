@@ -43,6 +43,7 @@ runs:
     - name: Remove / Check if label exists
       uses: paul1k/check-pr-labels@v1.0.0
       if: ${{ inputs.operation == 'remove' }}
+      id: check_pr_labels
       with:
         github-token: ${{ inputs.token }}
         pull-number: ${{ github.event.pull_request.number }}
