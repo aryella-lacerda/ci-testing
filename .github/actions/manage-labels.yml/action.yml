@@ -48,7 +48,7 @@ runs:
       run: echo "${{ steps.check_pr_labels.outputs.result }}"
 
     - name: Remove / Remove Label
-      if: ${{ inputs.operation == 'remove' }}
+      if: ${{ inputs.operation == 'remove' && steps.check_pr_labels.outputs.result == 'true' }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ inputs.token }}
