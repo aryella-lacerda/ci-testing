@@ -1,0 +1,14 @@
+name: On Check Suite
+
+on:
+  check_suite:
+    types: [completed]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
