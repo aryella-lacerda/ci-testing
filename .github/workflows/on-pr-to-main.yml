@@ -31,7 +31,7 @@ jobs:
         uses: ./.github/actions/manage-labels.yml
         with:
           token: ${{ steps.get_installation_token.outputs.token }}
-          operation: add
+          operation: remove
           label: "e2e tests passed"
 
       # - name: Start a check run for the E2E tests
