@@ -56,3 +56,9 @@ jobs:
       #         }
       #       })
 
+  test-action:
+    uses: ./.github/actions/manage-labels
+    secrets: inherit
+    with:
+      operation: add
+      label: "e2e tests passed"

@@ -2,6 +2,11 @@ name: Manage PR Labels
 description: Add or remove PR labels.
 
 inputs:
+  token:
+    type: string
+    required: false
+    description: Token used to execute the operation.
+    default: ${{ github.token }}
   operation:
     type: choice
     required: true
@@ -17,15 +22,33 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Create PR check for E2E Tests
+    - name: View context attributes
+      uses: actions/github-script@v6
+      with:
+        script: console.log(context)
+
+    - name: Add Label
       if: ${{ inputs.operation == 'add' }}
       uses: actions/github-script@v6
       with:
-        github-token: ${{ steps.app_token.outputs.token }}
+        github-token: ${{ github.token }} || ${{ inputs.token }}
         script: |
           github.rest.issues.addLabels({
-            owner: ${{ github.owner }},
-            repo: ${{ github.repo }},
-            issue_number: ${{ github.event.pull_request.number }},
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
             labels: [${{ input.label }}],
+          })
+
+    - name: Remove Label
+      if: ${{ inputs.operation == 'remove' }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ github.token }} || ${{ inputs.token }}
+        script: |
+          github.rest.issues.removeLabel({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: ${{ input.label }},
           })
