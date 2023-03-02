@@ -1,0 +1,31 @@
+name: Manage PR Labels
+description: Add or remove PR labels.
+
+inputs:
+  operation:
+    type: choice
+    required: true
+    description: What operation would you like to perform?
+    options:
+      - add
+      - remove
+  label:
+    type: string
+    required: true
+    description: What label would you like to add or remove?
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Create PR check for E2E Tests
+      if: ${{ inputs.operation == 'add' }}
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ steps.app_token.outputs.token }}
+        script: |
+          github.rest.issues.addLabels({
+            owner: ${{ github.owner }},
+            repo: ${{ github.repo }},
+            issue_number: ${{ github.event.pull_request.number }},
+            labels: [${{ input.label }}],
+          })
