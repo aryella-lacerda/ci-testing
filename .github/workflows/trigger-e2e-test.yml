@@ -28,10 +28,11 @@ jobs:
           github-token: ${{ steps.get_installation_token.outputs.token }}
           script: |
             github.rest.checks.create({
-              sha: "${{ github.event.pull_request.head.sha }}",
-              token: "${{ steps.get_installation_token.outputs.token }}",
+              owner: "aryella-lacerda",
+              repo: "ci-testing",
+              head_sha: "${{ github.event.pull_request.head.sha }}",
               name: "E2E Tests - Staging",
-              status: "in_progress"
+              status: "queued"
             })
 
       - name: Trigger Workflow
