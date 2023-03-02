@@ -29,6 +29,8 @@ jobs:
           operation: add
           label: "e2e tests passed"
 
+      - run: sleep 60s
+
       - name: Add label
         uses: ./.github/actions/manage-labels.yml
         with:
