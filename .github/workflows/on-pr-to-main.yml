@@ -17,37 +17,42 @@ jobs:
           ref: ${{ github.ref }}
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - uses: tibdex/github-app-token@v1
-        id: get_installation_token
-        with: 
-          app_id: 293149
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      - name: Dump context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
-      - name: Start a check run for the E2E tests
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ steps.get_installation_token.outputs.token }}
-          script: |
-            github.rest.checks.create({
-              owner: "aryella-lacerda",
-              repo: "ci-testing",
-              head_sha: "${{ github.event.pull_request.head.sha }}",
-              name: "E2E Tests - Staging",
-              status: "queued"
-            })
+      # - uses: tibdex/github-app-token@v1
+      #   id: get_installation_token
+      #   with: 
+      #     app_id: 293149
+      #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Trigger Workflow
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ steps.get_installation_token.outputs.token }}
-          script: |
-            github.rest.actions.createWorkflowDispatch({
-              owner: "aryella-lacerda",
-              repo: "ci-testing-e2e",
-              workflow_id: "run-e2e.yml",
-              ref: "main",
-              inputs: {
-                "pull_request_sha": "${{ github.event.pull_request.head.sha }}",
-              }
-            })
+      # - name: Start a check run for the E2E tests
+      #   uses: actions/github-script@v6
+      #   with:
+      #     github-token: ${{ steps.get_installation_token.outputs.token }}
+      #     script: |
+      #       github.rest.checks.create({
+      #         owner: "aryella-lacerda",
+      #         repo: "ci-testing",
+      #         head_sha: "${{ github.event.pull_request.head.sha }}",
+      #         name: "E2E Tests - Staging",
+      #         status: "queued"
+      #       })
+
+      # - name: Trigger Workflow
+      #   uses: actions/github-script@v6
+      #   with:
+      #     github-token: ${{ steps.get_installation_token.outputs.token }}
+      #     script: |
+      #       github.rest.actions.createWorkflowDispatch({
+      #         owner: "aryella-lacerda",
+      #         repo: "ci-testing-e2e",
+      #         workflow_id: "run-e2e.yml",
+      #         ref: "main",
+      #         inputs: {
+      #           "pull_request_sha": "${{ github.event.pull_request.head.sha }}",
+      #         }
+      #       })
 
