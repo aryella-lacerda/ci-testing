@@ -1,9 +1,9 @@
 name: On PR to Main
 
 on:
-  # pull_request:
-  #   branches:
-  #     - 'main'
+  pull_request_target:
+    branches:
+      - 'main'
   workflow_dispatch:
 
 jobs:
@@ -16,29 +16,29 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - uses: tibdex/github-app-token@v1
-        id: get_installation_token
-        with: 
-          app_id: 293149
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      # - uses: tibdex/github-app-token@v1
+      #   id: get_installation_token
+      #   with: 
+      #     app_id: 293149
+      #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Add label
-        uses: ./.github/actions/manage-labels.yml
-        with:
-          token: ${{ steps.get_installation_token.outputs.token }}
-          operation: add
-          label: "e2e tests passed"
-          pull-request-number: 2
+      # - name: Add label
+      #   uses: ./.github/actions/manage-labels.yml
+      #   with:
+      #     token: ${{ steps.get_installation_token.outputs.token }}
+      #     operation: add
+      #     label: "e2e tests passed"
+      #     pull-request-number: 3
 
-      - run: sleep 60s
+      # - run: sleep 60s
 
-      - name: Add label
-        uses: ./.github/actions/manage-labels.yml
-        with:
-          token: ${{ steps.get_installation_token.outputs.token }}
-          operation: add
-          label: "deployments succeeded"
-          pull-request-number: 2
+      # - name: Add label
+      #   uses: ./.github/actions/manage-labels.yml
+      #   with:
+      #     token: ${{ steps.get_installation_token.outputs.token }}
+      #     operation: add
+      #     label: "deployments succeeded"
+      #     pull-request-number: 3
 
       # - name: Start a check run for the E2E tests
       #   uses: actions/github-script@v6
