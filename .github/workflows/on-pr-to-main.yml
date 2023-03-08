@@ -11,17 +11,21 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+
       - name: Get PR Commits
         id: get_commits
         uses: tim-actions/get-pr-commits@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo '${{ toJSON(steps.get_commits.outputs.commits).*.commit.message }}'
-      - run: echo '${{ join(toJSON(steps.get_commits.outputs.commits).*.commit.message) }}'
+      - run: echo '${{ toJSON(toJSON(steps.get_commits.outputs.commits).*.commit.message) }}'
 
-      - name: Logging
-        run: echo '${{ toJSON(github) }}'
+      - name: Get PR commits
+        uses: minhchienwikipedia/get-pr-info@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: echo '${{ env.GIT_COMMITS }}'
 
       # - name: Checkout selected branch
       #   uses: actions/checkout@v3
