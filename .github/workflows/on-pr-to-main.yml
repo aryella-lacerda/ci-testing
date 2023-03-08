@@ -25,7 +25,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo '${{ env.GIT_COMMITS }}'
+      - run: |
+          echo '${{ env.GIT_COMMITS }}'
+          echo '${{ toJSON(env.GIT_COMMITS) }}'
+          echo '${{ fromJSON(env.GIT_COMMITS) }}'
+
 
       # - name: Checkout selected branch
       #   uses: actions/checkout@v3
