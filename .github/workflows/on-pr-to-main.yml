@@ -27,8 +27,8 @@ jobs:
 
       - run: |
           echo '${{ toJSON(env.GIT_COMMITS) }}'
-          echo '${{ toJSON(env.GIT_COMMITS).*.sha }}'
-
+          echo '${{ toJSON(toJSON(env.GIT_COMMITS).*.sha) }}'
+          echo '${{ env.GIT_COMMITS.*.sha }}'
 
 
       # - name: Checkout selected branch
