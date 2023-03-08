@@ -18,7 +18,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo '${{ toJSON(toJSON(steps.get_commits.outputs.commits).*.commit.message) }}'
+      - run: echo '${{ join(fromJSON(steps.get_commits.outputs.commits).*.commit.message) }}'
 
       - name: Get PR commits
         uses: minhchienwikipedia/get-pr-info@master
