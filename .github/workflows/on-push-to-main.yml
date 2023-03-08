@@ -3,7 +3,7 @@ name: On Push to Main
 on:
   push:
     branches:
-      - '**'
+      - 'main'
 
 env:
   COMMIT: ${{ github.event.commits[0].message }}
@@ -15,13 +15,3 @@ jobs:
       - name: Other
         run: |
           echo '${{ toJSON(github) }}'
-
-      - name: Split version code
-        uses: xom9ikk/split@v1
-        id: split1
-        with:
-          string: ${{ env.COMMIT }}
-          separator: \n\n
-
-      - run: |
-          echo '${{ toJSON(steps.split1.outputs) }}'
