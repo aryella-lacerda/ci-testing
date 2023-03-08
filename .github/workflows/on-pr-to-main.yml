@@ -17,8 +17,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo '${{ toJSON(steps.get_commits.outputs.commits.*.commit.message) }}'
-      - run: echo '${{ join(steps.get_commits.outputs.commits.*.commit.message) }}'
+      - run: echo '${{ toJSON(steps.get_commits.outputs.commits).*.commit.message }}'
+      - run: echo '${{ join(toJSON(steps.get_commits.outputs.commits).*.commit.message) }}'
 
       - name: Logging
         run: echo '${{ toJSON(github) }}'
