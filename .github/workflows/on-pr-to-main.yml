@@ -1,26 +1,29 @@
 name: On PR to Main
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
       - 'main'
   workflow_dispatch:
 
 jobs:
   trigger-e2e-tests:
-    name: Staging
+    name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout selected branch
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - name: Logging
+        run: echo '${{ toJSON(github) }}'
 
-      - uses: tibdex/github-app-token@v1
-        id: get_installation_token
-        with: 
-          app_id: 293149
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      # - name: Checkout selected branch
+      #   uses: actions/checkout@v3
+      #   with:
+      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      # - uses: tibdex/github-app-token@v1
+      #   id: get_installation_token
+      #   with: 
+      #     app_id: 293149
+      #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       # - name: Add label
       #   uses: ./.github/actions/manage-labels.yml
