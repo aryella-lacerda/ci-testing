@@ -3,18 +3,12 @@ name: On Push to Main
 on:
   push:
     branches:
-      - 'main'
+      - '**'
 
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - run: exit 0
-  job2:
-    runs-on: ubuntu-latest
-    steps:
-      - run: exit 0
-  job3:
-    runs-on: ubuntu-latest
-    steps:
-      - run: exit 0
+      - name: Logging
+        run: |
+          echo '${{ toJSON(github) }}'
