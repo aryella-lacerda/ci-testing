@@ -9,6 +9,6 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Logging
+      - name: Other
         run: |
           echo '${{ toJSON(github) }}'
