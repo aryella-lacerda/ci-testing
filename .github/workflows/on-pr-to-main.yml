@@ -12,13 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get PR Commits
-        id: 'get-pr-commits'
+        id: get_commits
         uses: tim-actions/get-pr-commits@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo '${{ steps.get-pr-commits.outputs.commits }}'
-      - run: echo '${{ toJSON(steps.get-pr-commits.outputs.commits) }}'
+      - run: echo '${{ steps.get_commits.outputs.commits.*.commit.message }}'
 
       - name: Logging
         run: echo '${{ toJSON(github) }}'
