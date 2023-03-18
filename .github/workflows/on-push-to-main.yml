@@ -3,13 +3,13 @@ name: On Push to Main
 on:
   push:
     branches:
-      - '**'
+      - 'main'
 
 env:
   COMMIT: ${{ github.event.commits[0].message }}
 
 jobs:
-  job1:
+  on-push-to-main:
     runs-on: ubuntu-latest
     steps:
       - name: Other
