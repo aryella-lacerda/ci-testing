@@ -27,8 +27,8 @@ jobs:
       - run: echo "${{ toJSON(github) }}"
 
       - run: |
-        yarn
-        yarn test --coverage
+          yarn
+          yarn test --coverage
 
       - uses: jgillick/test-coverage-reporter@v1.0.14
         with:
