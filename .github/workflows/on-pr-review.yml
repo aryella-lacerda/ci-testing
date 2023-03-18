@@ -19,7 +19,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           initial-status: in_progress
-          environment: test
+          environment: review
 
       - name: Update deployment status
         if: always()
