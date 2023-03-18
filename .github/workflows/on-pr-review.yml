@@ -17,6 +17,7 @@ jobs:
         uses: chrnorm/deployment-action@v2
         id: deployment
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           initial-status: in_progress
           environment: test
 
@@ -24,5 +25,6 @@ jobs:
         if: always()
         uses: chrnorm/deployment-status@v2
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: ${{ job.status }}
