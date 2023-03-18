@@ -7,80 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  trigger-e2e-tests:
+  test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-
-      - name: Get PR Commits
-        id: get_commits
-        uses: tim-actions/get-pr-commits@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - run: echo '${{ join(fromJSON(steps.get_commits.outputs.commits).*.commit.message) }}'
-
-      - name: Get PR commits
-        uses: minhchienwikipedia/get-pr-info@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - run: |
-          echo ${{ join(fromJSON(env.GIT_COMMITS).*.commit.message) }}
-
-      # - name: Checkout selected branch
-      #   uses: actions/checkout@v3
-      #   with:
-      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-      # - uses: tibdex/github-app-token@v1
-      #   id: get_installation_token
-      #   with: 
-      #     app_id: 293149
-      #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
-      # - name: Add label
-      #   uses: ./.github/actions/manage-labels.yml
-      #   with:
-      #     token: ${{ steps.get_installation_token.outputs.token }}
-      #     operation: add
-      #     label: "e2e tests passed"
-      #     pull-request-number: 3
-
-      # - run: sleep 60s
-
-      # - name: Add label
-      #   uses: ./.github/actions/manage-labels.yml
-      #   with:
-      #     token: ${{ steps.get_installation_token.outputs.token }}
-      #     operation: add
-      #     label: "deployments succeeded"
-      #     pull-request-number: 3
-
-      # - name: Start a check run for the E2E tests
-      #   uses: actions/github-script@v6
-      #   with:
-      #     github-token: ${{ steps.get_installation_token.outputs.token }}
-      #     script: |
-      #       github.rest.checks.create({
-      #         owner: "aryella-lacerda",
-      #         repo: "ci-testing",
-      #         head_sha: "${{ github.event.pull_request.head.sha }}",
-      #         name: "E2E Tests - Staging",
-      #         status: "queued"
-      #       })
-
-      # - name: Trigger Workflow
-      #   uses: actions/github-script@v6
-      #   with:
-      #     github-token: ${{ steps.get_installation_token.outputs.token }}
-      #     script: |
-      #       github.rest.actions.createWorkflowDispatch({
-      #         owner: "aryella-lacerda",
-      #         repo: "ci-testing-e2e",
-      #         workflow_id: "run-e2e.yml",
-      #         ref: "main",
-      #         inputs: {
-      #           "pull_request_sha": "${{ github.event.pull_request.head.sha }}",
-      #         }
-      #       })
+          echo "Head ref: $GITHUB_HEAD_REF"
+          echo "Just ref: $REF"
