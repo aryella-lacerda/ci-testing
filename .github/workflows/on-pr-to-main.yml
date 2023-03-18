@@ -15,7 +15,12 @@ jobs:
           echo "Head ref: $GITHUB_HEAD_REF"
           echo "Just ref: $REF"
 
-      - run: echo "$GITHUB_HEAD_REF | $REF | ${{ github.event.pull_request.head.ref }}"
+      - run: |
+          echo "$GITHUB_HEAD_REF 
+            | $REF 
+            | ${{ github.event.pull_request.head.ref }} 
+            | ${{ github.head_ref }}
+            | ${{ github.ref }}"
 
       - run: echo "${{ toJSON(github) }}"
 

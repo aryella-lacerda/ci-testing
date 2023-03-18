@@ -15,7 +15,12 @@ jobs:
 
       - run: echo "${{ toJSON(github) }}"
 
-      - run: echo "${{ github.event.pull_request.head.ref }}"
+      - run: |
+          echo "$GITHUB_HEAD_REF 
+            | $REF 
+            | ${{ github.event.pull_request.head.ref }} 
+            | ${{ github.head_ref }}
+            | ${{ github.ref }}"
 
       - name: Create GitHub deployment
         uses: chrnorm/deployment-action@v2
