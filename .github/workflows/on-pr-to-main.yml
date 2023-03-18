@@ -24,7 +24,7 @@ jobs:
 
       - run: echo "${{ toJSON(github) }}"
 
-      - uses: jgillick/test-coverage-reporter@v1
+      - uses: jgillick/test-coverage-reporter@v1.0.14
         with:
           coverage-file: coverage/coverage-final.json
           access-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
