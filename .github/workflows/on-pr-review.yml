@@ -13,3 +13,16 @@ jobs:
           echo "Head ref: $GITHUB_HEAD_REF"
           echo "Just ref: $REF"
 
+      - name: Create GitHub deployment
+        uses: chrnorm/deployment-action@v2
+        id: deployment
+        with:
+          initial-status: in_progress
+          environment: test
+
+      - name: Update deployment status
+        if: always()
+        uses: chrnorm/deployment-status@v2
+        with:
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: ${{ job.status }}
