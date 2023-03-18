@@ -1,0 +1,40 @@
+name: On PR Review
+
+on:
+  workflow_dispatch:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Head ref: $GITHUB_HEAD_REF"
+          echo "Just ref: $REF"
+
+      - run: echo "${{ toJSON(github) }}"
+
+      - run: |
+          echo "$GITHUB_HEAD_REF 
+            | $REF 
+            | ${{ github.event.pull_request.head.ref }} 
+            | ${{ github.head_ref }}
+            | ${{ github.ref }}"
+
+      - name: Create GitHub deployment
+        uses: chrnorm/deployment-action@v2
+        id: deployment
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          initial-status: in_progress
+          environment: review
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Update deployment status
+        if: always()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: ${{ job.status }}

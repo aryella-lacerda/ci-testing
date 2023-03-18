@@ -10,6 +10,8 @@ jobs:
   on-pr-to-main:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - run: |
           echo "Head ref: $GITHUB_HEAD_REF"
           echo "Just ref: $REF"
@@ -24,7 +26,26 @@ jobs:
 
       - run: echo "${{ toJSON(github) }}"
 
-      - uses: jgillick/test-coverage-reporter@v1
+      - run: |
+          yarn
+          git fetch origin
+
+          git switch ${{ github.event.pull_request.base.ref }}
+          yarn install --force
+          yarn test --coverage --coverageDirectory="base-branch/coverage"
+
+          git switch --detach -
+          yarn install --force
+          yarn test --coverage
+
+      - uses: tibdex/github-app-token@v1
+        id: get_installation_token
+        with: 
+          app_id: 293149
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: jgillick/test-coverage-reporter@v1.0.14
         with:
+          base-coverage-file: base-branch/coverage/coverage-final.json
           coverage-file: coverage/coverage-final.json
-          access-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          access-token: ${{ steps.get_installation_token.outputs.token }}

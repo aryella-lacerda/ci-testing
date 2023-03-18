@@ -3,25 +3,23 @@ name: On Push to Main
 on:
   push:
     branches:
-      - '**'
+      - 'main'
 
 env:
   COMMIT: ${{ github.event.commits[0].message }}
 
 jobs:
-  job1:
+  on-push-to-main:
     runs-on: ubuntu-latest
     steps:
       - name: Other
         run: |
           echo '${{ toJSON(github) }}'
 
-      - name: Split version code
-        uses: xom9ikk/split@v1
-        id: split1
-        with:
-          string: ${{ env.COMMIT }}
-          separator: \n\n
-
       - run: |
-          echo '${{ toJSON(steps.split1.outputs) }}'
+          echo "$GITHUB_HEAD_REF 
+            | $REF 
+            | ${{ github.event.pull_request.head.ref }} 
+            | ${{ github.head_ref }}
+            | ${{ github.ref }}"
+
