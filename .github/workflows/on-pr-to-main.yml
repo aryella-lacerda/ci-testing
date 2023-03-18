@@ -30,7 +30,13 @@ jobs:
           yarn
           yarn test --coverage
 
+      - uses: tibdex/github-app-token@v1
+        id: get_installation_token
+        with: 
+          app_id: 293149
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - uses: jgillick/test-coverage-reporter@v1.0.14
         with:
           coverage-file: coverage/coverage-final.json
-          access-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          access-token: ${{ steps.get_installation_token.outputs.token }}
